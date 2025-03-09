@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use App\Mail\MyMail;
 use App\Mail\SendEmail;
 use Illuminate\Http\Request;
@@ -21,5 +22,16 @@ class MailController extends Controller
         $subject = $request->subject;
         Mail::to($to)->send(new SendEmail($msg, $subject));
         return "Email sent";
+    }
+
+    public function sendEmailJob(Request $request){
+        $to = "rijanrai881@gmail.com";
+        $msg = "Hello HR, this is Rijan Rai";
+        $subject = "Job Application Letter";
+
+        // Dispatch the job to the queue
+        dispatch(new SendEmailJob($to, $msg, $subject));
+
+        return response()->json(['message' => 'Email is being processed in the queue!']);
     }
 }

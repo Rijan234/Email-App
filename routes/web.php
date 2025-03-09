@@ -10,3 +10,5 @@ Route::get('/', function () {
 Route::get('send-mail', [MailController::class, 'sendEmail']);
 Route::post('send-email', [MailController::class, 'sendMail']);
 Route::view('send-email', 'send-email');
+
+Route::get('send-mail-job', [MailController::class, 'sendEmailJob']);
