@@ -15,5 +15,11 @@ class MailController extends Controller
         $subject = "Job Application Letter";
         Mail::to($to)->send(new SendEmail($msg, $subject));
     }
-
+    public function sendMail(Request $request) {
+        $to = $request->to;
+        $msg = $request->message;
+        $subject = $request->subject;
+        Mail::to($to)->send(new SendEmail($msg, $subject));
+        return "Email sent";
+    }
 }
